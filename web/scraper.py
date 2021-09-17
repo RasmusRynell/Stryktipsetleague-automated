@@ -2,16 +2,16 @@ import json
 import os
 from threading import Thread
 from tqdm import tqdm
+import time
 
 
-def get_odds(urls, driver):
+def get_odds(urls, driver, username_input, password_input):
     result = []
 
-    log_in(driver)
+    log_in(driver, username_input, password_input)
     for url in tqdm(urls):
         result.append(get_odds_from_site(url, driver))
 
-    driver.quit()
     return result
 
 
@@ -41,8 +41,16 @@ def get_odds_from_site(url, driver):
         }
     return odds_cleaned
 
-def log_in(driver):
+def log_in(driver, username_input='', password_input=''):
     driver.get('https://www.oddsportal.com/login')
+
+    # Find and write username_input to '/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div[2]/div/form/div[1]/div[2]/input'
+    username = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div[3]/div/form/div[1]/div[2]/input')
+    username.send_keys(username_input)
+
+    # Find and write password_input to '/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div[3]/div/form/div[2]/div[2]/input'
+    password = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div[3]/div/form/div[2]/div[2]/input')
+    password.send_keys(password_input)
 
     # press login button with xpath '/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div[3]/div/form/div[3]/button'
     driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div[3]/div/form/div[3]/button').click()

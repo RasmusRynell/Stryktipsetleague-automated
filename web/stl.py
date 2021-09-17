@@ -67,7 +67,7 @@ def log_in(driver, email_value='', password_value=''):
                 raise Exception('Could not log in')
 
             # print e traceback
-            # print(e.__traceback__)
+            print(e.__traceback__)
             print("Could not log in, trying again!")
 
 
