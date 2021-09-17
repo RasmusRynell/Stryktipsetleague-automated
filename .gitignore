@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 # Dont keep
-#config.cfg
+config.cfg
 chromedriver.exe
