@@ -13,7 +13,7 @@ python3 -m venv env
 <br></br>
 <b>Activate environment:</b> <br>
 Windows:
-<pre>source env\Scripts\activate.bat </pre>
+<pre>source env\Scripts\activate </pre>
 <b><i>Or</i></b><br>
 Unix/MacOS:
 <pre>source env/bin/activate </pre>
