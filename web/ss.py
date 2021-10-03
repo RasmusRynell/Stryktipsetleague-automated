@@ -16,9 +16,9 @@ def get_odds():
             }
         except:
             return {
-                "Home" : 0,
-                "Draw" : 0,
-                "Away" : 0 
+                "Home" : -1,
+                "Draw" : -1,
+                "Away" : -1 
             }
 
     result = {'Odds': {}, 'Folket': {}, 'Tidningar': {}}
