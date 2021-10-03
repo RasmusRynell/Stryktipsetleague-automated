@@ -22,7 +22,7 @@ Unix/MacOS:
 <pre>python3 -m pip install -r requirements.txt</pre>
 <br></br>
 
-Create a file named "config.cfg" and fill in the following:
+Create a file named "config.cfg" and fill in the following (example can be found in the project):
 ```
 {
     "chrome_driver_path" : "ABSOLUTE PATH TO CHROME DRIVER",
