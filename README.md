@@ -43,3 +43,6 @@ From the top folder simply run:
 ```
 python ./main.py
 ```
+
+## Notes
+* When compiling dijkstras remember to compile for 64 but systems in order to not run out of memory when running.
