@@ -39,8 +39,7 @@ Create a file named "config.cfg" and fill in the following (example can be found
 ```
 <br></br>
 ## Run
-Simply run
+From the top folder simply run:
 ```
 python ./main.py
 ```
-from the top folder.
