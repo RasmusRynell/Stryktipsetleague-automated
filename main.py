@@ -19,6 +19,10 @@ options = Options()
 options.headless = config['headless']
 driver = webdriver.Chrome(config['chrome_driver_path'], options=options)
 
+# Get games
+# ss.get_games_and_odds()
+
+
 
 
 
@@ -27,9 +31,7 @@ with open(URLS, 'r') as f:
     data = f.readlines()
 
 urls = [obj.replace("\n", "") for obj in data]
-
 results = scraper.get_odds(urls, driver, config['login_op']['username'], config['login_op']['password'])
-
 
 results_sp = ss.get_odds()
 keys = list(results_sp['Odds'].keys())
@@ -90,6 +92,7 @@ for bet in bets:
     result[key] = value
 
 bets = result
+
 
 # Pretty print json
 print(json.dumps(bets, indent=4))

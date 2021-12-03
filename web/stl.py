@@ -17,58 +17,65 @@ def write_bets(bets, driver, email, password):
             button.click()
 
     # Find button with xpath '/html/body/div/div[5]/div/div[1]/div[3]/div[1]'
-    button = container.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[3]/div[1]')
-    button.click()
+    try:
+        button = container.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[3]/div[1]')
+        button.click()
+    except:
+        print("fail 1")
+    try:
+        button = container.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[3]/div[2]')
+        button.click()
+    except:
+        print("fail 1")
+
+    time.sleep(10)
+
+
 
 def log_in(driver, email_value='', password_value=''):
-    for i in range(10):
+    driver.get('https://www.stryktipsetleague.se/spel')
+    time.sleep(1)
+
+    # find and click button with xpath '/html/body/div/div[8]/div[2]/div/div[1]/div/div'
+    button = driver.find_element_by_xpath('/html/body/div/div[8]/div[2]/div/div[1]/div/div')
+    button.click()
+    time.sleep(1)
+
+    # find and cluck button with xpath '/html/body/div/div[7]/div/div[1]'
+    button = driver.find_element_by_xpath('/html/body/div/div[7]/div/div[1]')
+    button.click()
+    time.sleep(1)
+
+    # find fill mail with 'mail' and password with 'password'
+    email = driver.find_element_by_xpath('/html/body/div/div[4]/div/form/div[1]/div[1]/div[1]/div/input')
+    email.send_keys(email_value)
+    password = driver.find_element_by_xpath('/html/body/div/div[4]/div/form/div[1]/div[1]/div[2]/div/input')
+    password.send_keys(password_value)
+
+    # Find and press button with xpath '/html/body/div/div[4]/div/form/div[1]/div[2]/button'
+    button = driver.find_element_by_xpath('/html/body/div/div[4]/div/form/div[1]/div[2]/button')
+    button.click()
+    time.sleep(1)
+
+    driver.get('https://www.stryktipsetleague.se/spel')
+    time.sleep(1)
+    
+
+    # Find and press button with xpath '/html/body/div/div[5]/div/div[1]/div[2]/div[2]/div[1]/div/div/div[3]/div[2]/div/div/div[2]'
+    try:
+        button = driver.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[2]/div[2]/div[1]/div/div/div[3]/div[2]/div/div/div[2]')
+    except:
         try:
-            driver.get('https://www.stryktipsetleague.se/spel')
-            time.sleep(1)
-            # find and click button with xpath '/html/body/div/div[8]/div[2]/div/div[1]/div/div'
-            button = driver.find_element_by_xpath('/html/body/div/div[8]/div[2]/div/div[1]/div/div')
-            button.click()
-            time.sleep(1)
+            button = driver.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[2]/div[2]/div[1]/div/div/div[3]/div[2]/div/div/div')
+        except:
+            print('No button found')
 
-            # find and cluck button with xpath '/html/body/div/div[7]/div/div[1]'
-            button = driver.find_element_by_xpath('/html/body/div/div[7]/div/div[1]')
-            button.click()
-            time.sleep(1)
+    button.click()
+    time.sleep(1)
 
-            # find fill mail with 'mail' and password with 'password'
-            email = driver.find_element_by_xpath('/html/body/div/div[4]/div/form/div[1]/div[1]/div[1]/div/input')
-            email.send_keys(email_value)
-            time.sleep(1)
-            password = driver.find_element_by_xpath('/html/body/div/div[4]/div/form/div[1]/div[1]/div[2]/div/input')
-            password.send_keys(password_value)
-            time.sleep(1)
+    container = driver.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[2]/div/div[1]/div[2]')
 
-            # Find and press button with xpath '/html/body/div/div[4]/div/form/div[1]/div[2]/button'
-            button = driver.find_element_by_xpath('/html/body/div/div[4]/div/form/div[1]/div[2]/button')
-            button.click()
-            time.sleep(1)
-
-            driver.get('https://www.stryktipsetleague.se/spel')
-            time.sleep(1)
-            
-            # Find and press button with xpath '/html/body/div/div[5]/div/div[1]/div[2]/div[2]/div[1]/div/div/div[3]/div[2]/div/div/div[2]'
-            button = driver.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[2]/div[2]/div[1]/div/div/div[3]/div[2]/div/div/div[2]')
-            button.click()
-            time.sleep(1)
-
-            container = driver.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[2]/div/div[1]/div[2]')
-            time.sleep(1)
-
-            print('Logged in')
-            return container
-        except Exception as e:
-            if i == 9:
-                print('Failed to log in')
-                raise Exception('Could not log in')
-
-            # print e traceback
-            print(e.__traceback__)
-            print("Could not log in, trying again!")
+    return container
 
 
     raise Exception('Could not log in')

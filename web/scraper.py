@@ -16,6 +16,8 @@ def get_odds(urls, driver, username_input, password_input):
 
 
 def get_odds_from_site(url, driver):
+    if url == 'NONE':
+        return {}
     driver.get(url)
 
     # Get from id 'odds-data-table'
