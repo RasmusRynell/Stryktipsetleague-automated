@@ -1,4 +1,3 @@
-from web import scraper
 from web import oddsPortal
 from web import ss
 from web import stl
@@ -6,7 +5,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import pandas as pd
 import json
-import os
 import subprocess
 
 # Read config file
