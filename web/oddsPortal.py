@@ -1,13 +1,44 @@
-import json
-import os
-from threading import Thread
 from tqdm import tqdm
-import time
 
 
-def get_odds(urls, driver, username_input, password_input):
+
+def fill_with_odds(games, driver, username_input, password_input):
+    result = []
+
     log_in(driver, username_input, password_input)
-    return [get_odds_from_site(url, driver) for url in tqdm(urls)]
+    for game in tqdm(games):
+        # Get url for game
+        home_team_name = game['match']['participants'][0]['name'].replace(' ', '%20')
+        away_team_name = game['match']['participants'][1]['name'].replace(' ', '%20')
+        url = f"https://www.oddsportal.com/search/{home_team_name}%20-%20{away_team_name}/"
+        
+        # Go to site
+        driver.get(url)
+        # Wait for odds to load
+        driver.implicitly_wait(1)
+
+        url_to_game = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div/table[2]/tbody/tr[2]/td[2]/a').get_attribute('href')
+        if url_to_game == 'javascript:void(0);':
+            url_to_game = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div/table[2]/tbody/tr[2]/td[2]/a[2]').get_attribute('href')
+        print(url_to_game)
+        # Get odds for game
+        game['odds'].update(get_odds_from_site(url_to_game, driver))
+        game['odds_info']['avr_odds'] = get_average_odds(game['odds'])
+
+def get_average_odds(odds):
+    total_bookmakers = len(odds)
+    total_odds_one = 0
+    total_odds_x = 0
+    total_odds_two = 0
+    for key, game_odds in odds.items():
+        total_odds_one += (1/float(game_odds['one'])) / ((1/float(game_odds['one'])) + (1/float(game_odds['two'])) + (1/float(game_odds['x'])))
+        total_odds_x += (1/float(game_odds['x'])) / ((1/float(game_odds['one'])) + (1/float(game_odds['two'])) + (1/float(game_odds['x'])))
+        total_odds_two += (1/float(game_odds['two'])) / ((1/float(game_odds['one'])) + (1/float(game_odds['two'])) + (1/float(game_odds['x'])))
+    return {
+        'one': total_odds_one / total_bookmakers,
+        'x': total_odds_x / total_bookmakers,
+        'two': total_odds_two / total_bookmakers
+    }
 
 
 def get_odds_from_site(url, driver):
@@ -37,12 +68,13 @@ def get_odds_from_site(url, driver):
     for odd in odds[:-1]:
         site = odd['Site'].replace(' ', '').replace('\n', '').replace('\t', '').replace('\r', '')
         odds_cleaned[site] = {
-            'Home': float(odd['Home']),
-            'Draw': float(odd['Draw']),
-            'Away': float(odd['Away'])
+            'one': float(odd['Home']),
+            'x': float(odd['Draw']),
+            'two': float(odd['Away'])
         }
-    
     return odds_cleaned
+
+
 
 def log_in(driver, username_input='', password_input=''):
     driver.get('https://www.oddsportal.com/login')
