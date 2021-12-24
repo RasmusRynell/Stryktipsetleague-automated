@@ -26,16 +26,11 @@ oddsPortal.fill_with_odds(games, driver, config['login_op']['username'], config[
 
 with open(OUT_FILE, 'w') as f:
     for i, game in enumerate(games):
-        f.write(str(4))
-        f.write('\n')
-        f.write(str(i+1))
-        f.write('\n')
-        f.write(str(game['odds_info']['avr_odds']['one']))
-        f.write('\n')
-        f.write(str(game['odds_info']['avr_odds']['x']))
-        f.write('\n')
-        f.write(str(game['odds_info']['avr_odds']['two']))
-        f.write('\n')
+        f.write(str(4) + '\n') # Write number of inputs for this game
+        f.write(str(i+1) + '\n') # Write game id
+        f.write(str(game['odds_info']['avr_odds']['one']) + '\n')
+        f.write(str(game['odds_info']['avr_odds']['x']) + '\n')
+        f.write(str(game['odds_info']['avr_odds']['two']) + '\n')
 
 
 proc = subprocess.Popen(["./a.exe"])

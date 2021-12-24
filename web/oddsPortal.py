@@ -20,10 +20,17 @@ def fill_with_odds(games, driver, username_input, password_input):
         url_to_game = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div/table[2]/tbody/tr[2]/td[2]/a').get_attribute('href')
         if url_to_game == 'javascript:void(0);':
             url_to_game = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div/table[2]/tbody/tr[2]/td[2]/a[2]').get_attribute('href')
-        print(url_to_game)
-        # Get odds for game
-        game['odds'].update(get_odds_from_site(url_to_game, driver))
-        game['odds_info']['avr_odds'] = get_average_odds(game['odds'])
+        
+        if game['eventComment']:
+            game['odds_info']['avr_odds'] = {
+                'one': (float(game['eventComment'].split(": ")[-1].split("-")[0]))/100,
+                'x': (float(game['eventComment'].split(": ")[-1].split("-")[1]))/100,
+                'two': (float(game['eventComment'].split(": ")[-1].split("-")[2]))/100
+            }
+        else:
+            # Get odds for game
+            game['odds'].update(get_odds_from_site(url_to_game, driver))
+            game['odds_info']['avr_odds'] = get_average_odds(game['odds'])
 
 def get_average_odds(odds):
     total_bookmakers = len(odds)

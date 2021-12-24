@@ -7,6 +7,7 @@ API_URL = 'https://api.www.svenskaspel.se/draw/stryktipset/draws'
 def get_games():
     with requests.get(API_URL) as get_api:
         games = get_api.json()['draws'][0]['drawEvents']
+        
     for game in games:
         game['odds'] = {
             f"svenskaSpel/{game['providerIds'][0]['provider']}": {key:float(value.replace(",", ".")) for key, value in game['odds'].items()}

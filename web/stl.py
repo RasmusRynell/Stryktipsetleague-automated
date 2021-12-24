@@ -1,11 +1,12 @@
 import time
 
 def write_bets(bets, driver, email, password):
-    container = log_in(driver, email, password)
-    reset_buttons(container, driver)
+    log_in(driver, email, password)
+
+    container = driver.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[2]/div/div[1]/div[2]')
+    reset_buttons(container)
 
     for index, bet in bets.items():
-        print(bet)
         if "1" in bet:
             button = container.find_element_by_xpath(f'/html/body/div/div[5]/div/div[1]/div[2]/div/div[1]/div[2]/div[{index}]/div[1]/div[4]/div[1]')
             button.click()
@@ -21,14 +22,14 @@ def write_bets(bets, driver, email, password):
         button = container.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[3]/div[1]')
         button.click()
     except:
-        print("fail 1")
+        print("Placing bets for the first time")
     try:
         button = container.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[3]/div[2]')
         button.click()
     except:
-        print("fail 1")
+        print("Redoing bets")
 
-    time.sleep(10)
+    time.sleep(1)
 
 
 
@@ -63,24 +64,14 @@ def log_in(driver, email_value='', password_value=''):
 
     # Find and press button with xpath '/html/body/div/div[5]/div/div[1]/div[2]/div[2]/div[1]/div/div/div[3]/div[2]/div/div/div[2]'
     try:
-        button = driver.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[2]/div[2]/div[1]/div/div/div[3]/div[2]/div/div/div[2]')
+        button = driver.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[2]/div[2]/div[1]/div/div/div[3]/div[2]/div/div/div[2]').click()
     except:
         try:
-            button = driver.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[2]/div[2]/div[1]/div/div/div[3]/div[2]/div/div/div')
+            button = driver.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[2]/div[2]/div[1]/div/div/div[3]/div[2]/div/div/div').click()
         except:
             print('No button found')
-
-    button.click()
-    time.sleep(1)
-
-    container = driver.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[2]/div/div[1]/div[2]')
-
-    return container
-
-
-    raise Exception('Could not log in')
     
-def reset_buttons(container, driver):
+def reset_buttons(container):
     for i in range(1, 14):
         for j in range(1, 4):
             button = container.find_element_by_xpath(f'/html/body/div/div[5]/div/div[1]/div[2]/div/div[1]/div[2]/div[{i}]/div[1]/div[4]/div[{j}]')
