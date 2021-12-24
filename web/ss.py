@@ -31,4 +31,5 @@ def get_games():
         # Print no games found in red text
         print("\033[91mNo games found...\033[0m", flush=True)
         raise SystemExit
+        
     return games
