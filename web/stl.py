@@ -1,10 +1,12 @@
 import time
+import json
 
 def write_bets(bets, driver, email, password):
     log_in(driver, email, password)
 
     container = driver.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[2]/div/div[1]/div[2]')
-    reset_buttons(container)
+    print(json.dumps(reset_buttons(container), indent=4))
+   
 
     for index, bet in bets.items():
         if "1" in bet:
@@ -72,8 +74,13 @@ def log_in(driver, email_value='', password_value=''):
             print('No button found')
     
 def reset_buttons(container):
+    old = {}
     for i in range(1, 14):
+        game = ""
         for j in range(1, 4):
             button = container.find_element_by_xpath(f'/html/body/div/div[5]/div/div[1]/div[2]/div/div[1]/div[2]/div[{i}]/div[1]/div[4]/div[{j}]')
             if button.get_attribute('class') == 'nrs active':
                 button.click()
+                game += str(j if j == 1 else ("X" if j == 2 else "2"))
+        old[i] = game
+    return old
