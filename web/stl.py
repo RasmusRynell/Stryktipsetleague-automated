@@ -4,8 +4,11 @@ import json
 def write_bets(bets, driver, email, password):
     log_in(driver, email, password)
 
-    container = driver.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[2]/div/div[1]/div[2]')
-    print(json.dumps(reset_buttons(container), indent=4))
+    try:
+        container = driver.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[2]/div/div[1]/div[2]')
+    except:
+        print('\033[91m' + "Stryktipsetleague is not open! bets not written" + '\033[0m')
+        return
    
 
     for index, bet in bets.items():
