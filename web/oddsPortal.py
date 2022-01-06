@@ -1,15 +1,15 @@
 from tqdm import tqdm
+from translation import translate
 import json
 
 
 
 def fill_with_odds(games, driver, username_input, password_input):
-
     log_in(driver, username_input, password_input)
     for game in tqdm(games):
         # Get url for game
-        home_team_name = str(game['match']['participants'][0]['name']).replace(' ', '%20')
-        away_team_name = str(game['match']['participants'][1]['name']).replace(' ', '%20')
+        home_team_name = str(translate.translate_team_name(game['match']['participants'][0]['name'])).replace(' ', '%20')
+        away_team_name = str(translate.translate_team_name(game['match']['participants'][1]['name'])).replace(' ', '%20')
         url = f"https://www.oddsportal.com/search/{home_team_name}%20-%20{away_team_name}/"
         
         # Go to site

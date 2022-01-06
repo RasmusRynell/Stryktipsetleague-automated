@@ -1,0 +1,6 @@
+{
+    "West Bromwich": "West Brom",
+    "Queens PR": "QPR",
+    "Boreham Wood FC": "Boreham Wood",
+    "Cambridge United": "Cambridge Utd"
+}
