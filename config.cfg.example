@@ -8,5 +8,6 @@
     "login_stl" : {
         "email" : "YOU'R EMAIL TO STRYKTIPSETETLEAGUE",
         "password" : "YOU'R PASSWORD TO STRYKTIPSETETLEAGUE"
-    }
+    },
+    "sleep_time" : 60
 }

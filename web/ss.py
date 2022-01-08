@@ -33,3 +33,8 @@ def get_games():
         raise SystemExit
         
     return games
+
+def games_are_open():
+    with requests.get(API_URL) as get_api:
+        api_data = get_api.json()
+    return api_data is not []
