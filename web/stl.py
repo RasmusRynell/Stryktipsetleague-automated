@@ -10,6 +10,7 @@ def write_bets(bets, driver, email, password):
         print('\033[91m' + "Stryktipsetleague is not open! bets not written" + '\033[0m')
         return
    
+    reset_buttons(container)
 
     for index, bet in bets.items():
         if "1" in bet:
@@ -26,13 +27,14 @@ def write_bets(bets, driver, email, password):
     try:
         button = container.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[3]/div[1]')
         button.click()
-    except:
-        print("Redoing bets")
-    try:
-        button = container.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[3]/div[2]')
-        button.click()
-    except:
         print("Placing bets for the first time")
+    except:
+        try:
+            button = container.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[3]/div[2]')
+            button.click()
+            print("Redoing bets")
+        except:
+            print('\033[91m' + "No button found, nothing has changed" + '\033[0m')
 
     time.sleep(1)
 
