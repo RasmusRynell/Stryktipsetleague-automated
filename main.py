@@ -17,6 +17,7 @@ if __name__ == '__main__':
         config = json.load(json_data_file)
 
     args = sys.argv[1:]
+    print('\033[93m' + 'Ran with commands: ' + str(args) + '\033[0m')
     if len(args) == 1 and args[0] == '--forever':
         print("\033[93mCheck if games are open...\033[0m", flush=True)
         while(not ss.games_are_open()):

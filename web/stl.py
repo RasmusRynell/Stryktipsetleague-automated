@@ -27,12 +27,12 @@ def write_bets(bets, driver, email, password):
         button = container.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[3]/div[1]')
         button.click()
     except:
-        print("Placing bets for the first time")
+        print("Redoing bets")
     try:
         button = container.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[3]/div[2]')
         button.click()
     except:
-        print("Redoing bets")
+        print("Placing bets for the first time")
 
     time.sleep(1)
 
