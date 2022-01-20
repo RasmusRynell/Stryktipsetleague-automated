@@ -88,13 +88,11 @@ def log_in(driver, username_input='', password_input=''):
     driver.get('https://www.oddsportal.com/login')
 
     # Check if cookies clickable and if so, accept them
-    while True:
-        try:
-            time.sleep(1)
-            driver.find_element_by_xpath('/html/body/div[4]/div[3]/div/div[1]/div/div[2]/div/button[1]').click()
-            break
-        except:
-            pass
+    time.sleep(5)
+    try:
+        driver.find_element_by_xpath('/html/body/div[4]/div[3]/div/div[1]/div/div[2]/div/button[1]').click()
+    except Exception as e:
+        print("Did not work...", flush=True)
 
     # Find and write username_input to '/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div[2]/div/form/div[1]/div[2]/input'
     username = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div[3]/div/form/div[1]/div[2]/input')

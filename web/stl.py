@@ -25,16 +25,17 @@ def write_bets(bets, driver, email, password):
 
     # Find button with xpath '/html/body/div/div[5]/div/div[1]/div[3]/div[1]'
     try:
-        button = container.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[3]/div[1]')
+        button = container.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[3]/div[2]')
         button.click()
-        print("Placing bets for the first time")
+        print("Placing bets for the first time", flush=True)
     except:
         try:
-            button = container.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[3]/div[2]')
+            button = container.find_element_by_xpath('/html/body/div/div[5]/div/div[1]/div[3]/div[1]')
             button.click()
-            print("Redoing bets")
+            print("Redoing bets", flush=True)
         except:
-            print('\033[91m' + "No button found, nothing has changed" + '\033[0m')
+            print('\033[91m' + "No button found, nothing has changed" + '\033[0m', flush=True)
+        
 
     time.sleep(1)
 
