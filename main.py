@@ -1,6 +1,7 @@
 from web import oddsPortal
 from web import ss
 from web import stl
+from my_help import my_help
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import pandas as pd
@@ -9,7 +10,6 @@ import subprocess
 import sys
 import time
 from datetime import datetime
-
 
 if __name__ == '__main__':
     # Read config file
@@ -51,7 +51,7 @@ if __name__ == '__main__':
     proc.wait()
 
     # Read out.txt
-    with open(OUT_FILE, 'r') as f:
+    with open(OUT_FILE, 'r') as f:  
         bets = f.readlines()
 
     bets = [bet.replace('\n', '') for bet in bets]
@@ -63,10 +63,8 @@ if __name__ == '__main__':
 
     bets = result
 
+    old = stl.write_bets(bets, driver, config['login_stl']['email'], config['login_stl']['password'])
 
-    # Pretty print json
-    print(json.dumps(bets, indent=4))
-
-    stl.write_bets(bets, driver, config['login_stl']['email'], config['login_stl']['password'])
+    my_help.print_diff(old, bets)
 
     driver.quit()

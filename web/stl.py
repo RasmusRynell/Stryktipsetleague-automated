@@ -10,7 +10,7 @@ def write_bets(bets, driver, email, password):
         print('\033[91m' + "Stryktipsetleague is not open! bets not written" + '\033[0m')
         return
    
-    reset_buttons(container)
+    old = reset_buttons(container)
 
     for index, bet in bets.items():
         if "1" in bet:
@@ -38,6 +38,7 @@ def write_bets(bets, driver, email, password):
         
 
     time.sleep(1)
+    return old
 
 
 

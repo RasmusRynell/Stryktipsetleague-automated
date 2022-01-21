@@ -2,6 +2,7 @@ from tqdm import tqdm
 from translation import translate
 import json
 import time
+from selenium.webdriver.common.by import By
 
 
 
@@ -58,18 +59,19 @@ def get_odds_from_site(url, driver):
     odds_table = driver.find_element_by_id('odds-data-table')
 
     # Get all element by class 'table-main detail-odds sortable
-    odds_table_main = odds_table.find_elements_by_class_name('detail-odds')[0]
+    odds_table_main = odds_table.find_elements(By.CLASS_NAME, 'detail-odds')[0]
 
     # Get first tbody
-    odds_table_body = odds_table_main.find_elements_by_tag_name('tbody')[0]
+    odds_table_body = odds_table_main.find_elements(By.TAG_NAME, 'tbody')[0]
+
     odds = [
         dict(
             zip(
                 ['Site', 'Home', 'Draw', 'Away'],
-                [td.text for td in tr.find_elements_by_tag_name('td')],
+                [td.text for td in tr.find_elements(By.TAG_NAME, 'td')],
             )
         )
-        for tr in odds_table_body.find_elements_by_tag_name('tr')
+        for tr in odds_table_body.find_elements(By.TAG_NAME, 'tr')
     ]
 
     odds_cleaned = {}
@@ -91,7 +93,7 @@ def log_in(driver, username_input='', password_input=''):
     time.sleep(5)
     try:
         driver.find_element_by_xpath('/html/body/div[4]/div[3]/div/div[1]/div/div[2]/div/button[1]').click()
-    except Exception as e:
+    except:
         try:
             driver.find_element_by_xpath('/html/body/div[3]/div[3]/div/div[1]/div/div[2]/div/button[1]').click()
         except:
