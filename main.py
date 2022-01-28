@@ -27,7 +27,6 @@ if __name__ == '__main__':
             time.sleep(config['sleep_time'])
         print('\033[92m' + 'Data found, running' + '\033[0m', flush=True)
 
-    URLS = 'urls.txt'
     OUT_FILE = 'out.txt'
 
     options = Options()
@@ -56,17 +55,12 @@ if __name__ == '__main__':
     with open(OUT_FILE, 'r') as f:  
         bets = f.readlines()
 
-    bets = [bet.replace('\n', '') for bet in bets]
-
     result = {}
-    for bet in bets:
+    for bet in [bet.replace('\n', '') for bet in bets]:
         key, value = bet.split(':')
         result[key] = value
 
-    bets = result
+    old = stl.write_bets(result, driver, config['login_stl']['email'], config['login_stl']['password'])
 
-    old = stl.write_bets(bets, driver, config['login_stl']['email'], config['login_stl']['password'])
-
-    helpers.print_diff(old, bets)
-
+    helpers.print_diff(old, result)
     driver.quit()
