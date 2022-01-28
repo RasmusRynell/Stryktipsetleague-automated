@@ -1,5 +1,4 @@
 {
-    "chrome_driver_path" : "ABSOLUTE PATH TO CHROME DRIVER",
     "headless" : true,
     "login_op" : {
         "username" : "YOU'R USERNAME TO ODDS PORTAL",

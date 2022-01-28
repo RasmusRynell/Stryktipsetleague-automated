@@ -27,10 +27,14 @@ def fill_with_odds(games, driver, username_input, password_input):
             }
         else:
             # Get odds for game
-            url_to_game = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div/table[2]/tbody/tr[2]/td[2]/a').get_attribute('href')
-            if url_to_game == 'javascript:void(0);':
-                url_to_game = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div/table[2]/tbody/tr[2]/td[2]/a[2]').get_attribute('href')
-        
+            try:
+                url_to_game = driver.find_element(By.XPATH, '/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div/table[2]/tbody/tr[2]/td[2]/a').get_attribute('href')
+                if url_to_game == 'javascript:void(0);':
+                    url_to_game = driver.find_element(By.XPATH, '/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div/table[2]/tbody/tr[2]/td[2]/a[2]').get_attribute('href')
+            except Exception as e:
+                print(f"Could not find game for {game['match']['participants'][0]['name']} - {game['match']['participants'][1]['name']}")
+                raise(e)
+
             game['odds'].update(get_odds_from_site(url_to_game, driver))
             game['odds_info']['avr_odds'] = get_average_odds(game['odds'])
 
@@ -56,7 +60,7 @@ def get_odds_from_site(url, driver):
     driver.get(url)
 
     # Get from id 'odds-data-table'
-    odds_table = driver.find_element_by_id('odds-data-table')
+    odds_table = driver.find_element(By.ID, 'odds-data-table')
 
     # Get all element by class 'table-main detail-odds sortable
     odds_table_main = odds_table.find_elements(By.CLASS_NAME, 'detail-odds')[0]
@@ -92,21 +96,21 @@ def log_in(driver, username_input='', password_input=''):
     # Check if cookies clickable and if so, accept them
     time.sleep(5)
     try:
-        driver.find_element_by_xpath('/html/body/div[4]/div[3]/div/div[1]/div/div[2]/div/button[1]').click()
+        driver.find_element(By.XPATH, '/html/body/div[4]/div[3]/div/div[1]/div/div[2]/div/button[1]').click()
     except:
         try:
-            driver.find_element_by_xpath('/html/body/div[3]/div[3]/div/div[1]/div/div[2]/div/button[1]').click()
+            driver.find_element(By.XPATH, '/html/body/div[3]/div[3]/div/div[1]/div/div[2]/div/button[1]').click()
         except:
             print("Did not work...", flush=True)
 
     # Find and write username_input to '/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div[2]/div/form/div[1]/div[2]/input'
-    username = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div[3]/div/form/div[1]/div[2]/input')
+    username = driver.find_element(By.XPATH, '/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div[3]/div/form/div[1]/div[2]/input')
     username.send_keys(username_input)
 
     # Find and write password_input to '/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div[3]/div/form/div[2]/div[2]/input'
-    password = driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div[3]/div/form/div[2]/div[2]/input')
+    password = driver.find_element(By.XPATH, '/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div[3]/div/form/div[2]/div[2]/input')
     password.send_keys(password_input)
 
     # press login button with xpath '/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div[3]/div/form/div[3]/button'
-    driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div[3]/div/form/div[3]/button').click()
+    driver.find_element(By.XPATH, '/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div[3]/div/form/div[3]/button').click()
 

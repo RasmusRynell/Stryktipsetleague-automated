@@ -1,9 +1,11 @@
 from web import oddsPortal
 from web import ss
 from web import stl
-from my_help import my_help
+from helper import helpers
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 import pandas as pd
 import json
 import subprocess
@@ -30,7 +32,7 @@ if __name__ == '__main__':
 
     options = Options()
     options.headless = config['headless']
-    driver = webdriver.Chrome(config['chrome_driver_path'], options=options)
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
     # Get games
     games = ss.get_games()
@@ -65,6 +67,6 @@ if __name__ == '__main__':
 
     old = stl.write_bets(bets, driver, config['login_stl']['email'], config['login_stl']['password'])
 
-    my_help.print_diff(old, bets)
+    helpers.print_diff(old, bets)
 
     driver.quit()

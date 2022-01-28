@@ -3,5 +3,6 @@
     "Queens PR": "QPR",
     "Boreham Wood FC": "Boreham Wood",
     "Cambridge United": "Cambridge Utd",
-    "Wolverhampton": "Wolves"
+    "Wolverhampton": "Wolves",
+    "Burton Albion": "Burton"
 }
