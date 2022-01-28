@@ -19,13 +19,13 @@ if __name__ == '__main__':
         config = json.load(json_data_file)
 
     args = sys.argv[1:]
-    print('\033[93m' + 'Ran with commands: ' + str(args) + '\033[0m')
+    print(helpers.colored('Ran with commands: ' + str(args), 'yellow'))
     if len(args) == 1 and args[0] == '--forever':
-        print("\033[93mCheck if games are open...\033[0m", flush=True)
+        print(helpers.colored('Check if games are open...', 'yellow'), flush=True)
         while(not ss.games_are_open()):
             print(f'{datetime.now().strftime("%H:%M:%S")}: \033[91mNo data available yet, sleeping for {config["sleep_time"]}s\033[0m', flush=True)
             time.sleep(config['sleep_time'])
-        print('\033[92m' + 'Data found, running' + '\033[0m', flush=True)
+        print(helpers.colored('Data found, running', 'green'), flush=True)
 
     OUT_FILE = 'out.txt'
 
@@ -54,6 +54,9 @@ if __name__ == '__main__':
     # Read out.txt
     with open(OUT_FILE, 'r') as f:  
         bets = f.readlines()
+
+    # Remove OUT_FILE
+    subprocess.call(['rm', OUT_FILE])
 
     result = {}
     for bet in [bet.replace('\n', '') for bet in bets]:
