@@ -132,3 +132,4 @@ dmypy.json
 config.cfg
 chromedriver.exe
 a.out
+.vscode
