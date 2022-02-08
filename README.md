@@ -3,7 +3,8 @@
 
 ## Setup
 *Make sure you have at least python 3.6.0 installed*<br>
-*Make sure you have chrome drivers for you'r version of chrome installed*<br>
+*Make sure you have chrome installed*<br>
+*Make sure you have a g++ installed as well as make*<br>
 *If you intend to change c++ files make sure you have some way of recompiling those files*</br></br>
 
 Navigate into to project, create an environment, activate it, and install the required packages
@@ -37,12 +38,13 @@ Create a file named "config.cfg" and fill in the following (example can be found
     }
 }
 ```
-<br></br>
+<br>
 ## Run
 From the top folder simply run:
 ```
+make
 python ./main.py
 ```
 
 ## Notes
-* When compiling dijkstras remember to compile for 64 but systems in order to not run out of memory when running.
+* When compiling dijkstras remember to compile for 64 but systems in order to not run out of memory when running. (see make-file)
