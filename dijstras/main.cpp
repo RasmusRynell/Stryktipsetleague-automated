@@ -55,8 +55,6 @@ std::vector<Game*> read_games(std::string file_name) {
     std::ifstream file(file_name);
     if (file.is_open()) {
         std::string line;
-        int curr_line = 0;
-        int num_of_lines = 0;
         while (std::getline(file, line))
             lines.push_back(line);
         file.close();
@@ -133,7 +131,11 @@ int main(){
 
     int curr_id = 0;
     float cost = 0;
-    Node* curr_node = new Node(curr_id, nullptr, games[0], 0, 1, 1, 6, 6);
+    int tripples = 1;
+    int doubles = 6;
+    int singles = 6;
+    
+    Node* curr_node = new Node(curr_id, nullptr, games[0], 0, 1, tripples, doubles, singles);
     std::priority_queue<Node*, std::vector<Node*>, CompareCurrentCost> pq;
     pq.push(curr_node);
 
@@ -150,7 +152,7 @@ int main(){
             pq.push(new Node(++curr_id, curr_node, games[curr_node->m_game->id], 1, curr_node->m_current_cost * cost, curr_node->m_tripples_left - 1, curr_node->m_doubles_left, curr_node->m_singles_left));
         }
 
-        // Add all combinations of halvs
+        // Add all combinations of halfs
         if (curr_node->m_doubles_left > 0)
             for (int i = 0; i <= 2; i++)
             {
@@ -160,7 +162,7 @@ int main(){
                 pq.push(new Node(++curr_id, curr_node, games[curr_node->m_game->id], 20+i, curr_node->m_current_cost * cost, curr_node->m_tripples_left, curr_node->m_doubles_left - 1, curr_node->m_singles_left));
             }
 
-        // Add all combinations of spiks
+        // Add all combinations of nails
         if (curr_node->m_singles_left > 0)
             for (int i = 0; i <= 2; i++)
             {
