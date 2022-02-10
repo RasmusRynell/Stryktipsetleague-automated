@@ -4,8 +4,7 @@
 ## Setup
 *Make sure you have at least python 3.6.0 installed*<br>
 *Make sure you have chrome installed*<br>
-*Make sure you have a g++ installed as well as make*<br>
-*If you intend to change c++ files make sure you have some way of recompiling those files*</br></br>
+*Make sure you have a g++ (and/or make) installed<br>
 
 Navigate into to project, create an environment, activate it, and install the required packages
 <pre>
@@ -22,7 +21,6 @@ Unix/MacOS:
 <b>Install packages</b>
 <pre>python3 -m pip install -r requirements.txt</pre>
 <br></br>
-
 Create a file named "config.cfg" and fill in the following (example can be found at "config.cfg.example"):
 ```
 {
@@ -46,6 +44,7 @@ Create a file named "config.cfg" and fill in the following (example can be found
 }
 ```
 <br>
+
 ## Run
 From the top folder simply run:
 ```
