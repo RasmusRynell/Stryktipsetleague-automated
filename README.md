@@ -23,10 +23,9 @@ Unix/MacOS:
 <pre>python3 -m pip install -r requirements.txt</pre>
 <br></br>
 
-Create a file named "config.cfg" and fill in the following (example can be found in the project):
+Create a file named "config.cfg" and fill in the following (example can be found at "config.cfg.example"):
 ```
 {
-    "chrome_driver_path" : "ABSOLUTE PATH TO CHROME DRIVER",
     "headless" : true,
     "login_op" : {
         "username" : "YOU'R USERNAME TO ODDS PORTAL",
@@ -35,6 +34,14 @@ Create a file named "config.cfg" and fill in the following (example can be found
     "login_stl" : {
         "email" : "YOU'R EMAIL TO STRYKTIPSETETLEAGUE",
         "password" : "YOU'R PASSWORD TO STRYKTIPSETETLEAGUE"
+    },
+    "sleep_time" : 60,
+    "output-email": {
+        "from": "DESIRED OUTPUT EMAIL ADDRESS",
+        "server": "EMAIL SERVER,
+        "port": FORT TO EMAIL SERVER,
+        "password": "EMAIL SERVER PASSWORD",
+        "to": ["EMAIL ADDRESS TO SEND TO"]
     }
 }
 ```
@@ -43,8 +50,8 @@ Create a file named "config.cfg" and fill in the following (example can be found
 From the top folder simply run:
 ```
 make
-python ./main.py
+python3 ./main.py
 ```
 
 ## Notes
-* When compiling dijkstras remember to compile for 64 but systems in order to not run out of memory when running. (see make-file)
+* When compiling dijkstras remember to compile for 64 but systems in order to not run out of memory at runtime. (see make-file)
