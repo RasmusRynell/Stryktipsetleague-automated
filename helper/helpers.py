@@ -39,17 +39,19 @@ def colored(text, color):
     else:
         return text
 
-def print_diff(old, new):
+def diff(old, new, color=False):
     # Convert yo strings
     old = json.dumps(old, indent=4)
     new = json.dumps(new, indent=4)
+    output = ''
 
     if old.splitlines() != new.splitlines():
         # Print the difference, removed text lines in red and added lines in green
         for line in difflib.unified_diff(new.splitlines(), old.splitlines(), lineterm=''):
             if line.startswith('-'):
-                print(colored(line, 'red'), flush=True)
+                output += colored(line, 'red') + '\n' if color else line + '\n'
             elif line.startswith('+'):
-                print(colored(line, 'green'), flush=True)
-    else:
-        print('No changes', flush=True)
+                output += colored(line, 'green') + '\n' if color else line + '\n'
+                
+    output = output.replace('+null', '').replace(colored("+null", 'green'), '')
+    return output

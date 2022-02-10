@@ -1,6 +1,7 @@
 from web import oddsPortal
 from web import ss
 from web import stl
+from web import email_service
 from helper import helpers
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -37,7 +38,7 @@ if __name__ == '__main__':
     games = ss.get_games()
 
     # Request odds for all games
-    oddsPortal.fill_with_odds(games, driver, config['login_op']['username'], config['login_op']['password'])
+    oddsPortal.fill_with_odds(config, games, driver, config['login_op']['username'], config['login_op']['password'])
 
     with open(OUT_FILE, 'w') as f:
         for i, game in enumerate(games):
@@ -46,7 +47,6 @@ if __name__ == '__main__':
             f.write(str(game['odds_info']['avr_odds']['one']) + '\n')
             f.write(str(game['odds_info']['avr_odds']['x']) + '\n')
             f.write(str(game['odds_info']['avr_odds']['two']) + '\n')
-
 
     proc = subprocess.Popen(["./a.exe"])
     proc.wait()
@@ -63,7 +63,12 @@ if __name__ == '__main__':
         key, value = bet.split(':')
         result[key] = value
 
-    old = stl.write_bets(result, driver, config['login_stl']['email'], config['login_stl']['password'])
+    old = stl.write_bets(config, result, driver)
 
-    helpers.print_diff(old, result)
+    if diff := helpers.diff(old, result, False):
+        print(helpers.diff(old, result, True), flush=True)
+        email_service.send_email(config['output-email'], 'STL bets', diff + "\n\nhttps://www.stryktipsetleague.se/spel")
+    else:
+        print(helpers.colored('No changes detected', 'green'), flush=True)
+
     driver.quit()

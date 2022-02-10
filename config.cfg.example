@@ -8,5 +8,12 @@
         "email" : "YOU'R EMAIL TO STRYKTIPSETETLEAGUE",
         "password" : "YOU'R PASSWORD TO STRYKTIPSETETLEAGUE"
     },
-    "sleep_time" : 60
+    "sleep_time" : 60,
+    "output-email": {
+        "from": "DESIRED OUTPUT EMAIL ADDRESS",
+        "server": "EMAIL SERVER,
+        "port": FORT TO EMAIL SERVER,
+        "password": "EMAIL SERVER PASSWORD",
+        "to": ["EMAIL ADDRESS TO SEND TO"]
+    }
 }

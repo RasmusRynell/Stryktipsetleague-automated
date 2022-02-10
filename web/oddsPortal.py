@@ -3,10 +3,11 @@ from translation import translate
 import json
 import time
 from selenium.webdriver.common.by import By
+from web import email_service
 
 
 
-def fill_with_odds(games, driver, username_input, password_input):
+def fill_with_odds(settings, games, driver, username_input, password_input):
     log_in(driver, username_input, password_input)
     for game in tqdm(games):
         # Get url for game
@@ -26,13 +27,14 @@ def fill_with_odds(games, driver, username_input, password_input):
                 'two': (float(game['eventComment'].split(": ")[-1].split("-")[2]))/100
             }
         else:
-            # Get odds for game
             try:
                 url_to_game = driver.find_element(By.XPATH, '/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div/table[2]/tbody/tr[2]/td[2]/a').get_attribute('href')
                 if url_to_game == 'javascript:void(0);':
                     url_to_game = driver.find_element(By.XPATH, '/html/body/div[1]/div/div[2]/div[6]/div[1]/div/div[1]/div[2]/div[1]/div/table[2]/tbody/tr[2]/td[2]/a[2]').get_attribute('href')
             except Exception as e:
                 print(f"Could not find game for {game['match']['participants'][0]['name']} - {game['match']['participants'][1]['name']}")
+                email_service.send_email(settings['output-email'], "ERROR - Game not found",\
+                f"Could not find game for \"{game['match']['participants'][0]['name']} - {game['match']['participants'][1]['name']}\"")
                 raise(e)
 
             game['odds'].update(get_odds_from_site(url_to_game, driver))

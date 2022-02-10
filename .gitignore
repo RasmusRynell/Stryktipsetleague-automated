@@ -133,3 +133,4 @@ config.cfg
 chromedriver.exe
 a.out
 **/.vscode/
+a.exe

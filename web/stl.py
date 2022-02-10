@@ -1,15 +1,20 @@
 import time
 import json
+from web import email_service
+from helper import helpers
 from selenium.webdriver.common.by import By
 
-def write_bets(bets, driver, email, password):
-    log_in(driver, email, password)
+
+def write_bets(settings, bets, driver):
+    log_in(driver, settings['login_stl']['email'], settings['login_stl']['password'])
 
     try:
         container = driver.find_element(By.XPATH, '/html/body/div/div[5]/div/div[1]/div[2]/div/div[1]/div[2]')
-    except:
-        print('\033[91m' + "Stryktipsetleague is not open! bets not written" + '\033[0m')
-        return
+    except Exception as e:
+        print('\033[91m' + "Cannot log into stryktipset league" + '\033[0m')
+        email_service.send_email(settings['output-email'], 'ERROR - STL', 'Cannot log into stryktipset league, \
+            check your credentials and if the website is up' + '\n\n' + 'https://www.stryktipsetleague.se/spel')
+        raise(e)
    
     old = reset_buttons(container)
 
@@ -36,7 +41,6 @@ def write_bets(bets, driver, email, password):
             print("Redoing bets", flush=True)
         except:
             print('\033[91m' + "No button found, nothing has changed" + '\033[0m', flush=True)
-        
 
     time.sleep(1)
     return old
