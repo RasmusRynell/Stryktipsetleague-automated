@@ -66,9 +66,16 @@ if __name__ == '__main__':
 
     old = stl.write_bets(config, result, driver)
 
+    current_time = datetime.now().strftime("%H:%M:%S")
     if diff := helpers.diff(old, result, False):
         print(helpers.diff(old, result, True), flush=True)
-        email_service.send_email(config['output-email'], 'STL bets', diff + "\n\nhttps://www.stryktipsetleague.se/spel")
+        email_service.send_email(
+            config['output-email'],
+            'STL bets',
+            f'{current_time} \n\n{diff}'
+            + "\n\nhttps://www.stryktipsetleague.se/spel",
+        )
+
     else:
         print(helpers.colored('No changes detected', 'green'), flush=True)
 
