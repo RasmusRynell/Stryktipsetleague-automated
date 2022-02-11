@@ -48,7 +48,8 @@ if __name__ == '__main__':
             f.write(str(game['odds_info']['avr_odds']['x']) + '\n')
             f.write(str(game['odds_info']['avr_odds']['two']) + '\n')
 
-    proc = subprocess.Popen(["./a.exe"])
+
+    proc = subprocess.Popen([f'./{config["dijkstras_file"]}'])
     proc.wait()
 
     # Read out.txt

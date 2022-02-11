@@ -16,4 +16,5 @@
         "password": "EMAIL SERVER PASSWORD",
         "to": ["EMAIL ADDRESS TO SEND TO"]
     }
+    "dijkstras_file": "DIJKSTRAS FILE (a.out or a.exe)"
 }
