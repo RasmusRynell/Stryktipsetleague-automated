@@ -1,4 +1,5 @@
 import smtplib
+from unidecode import unidecode
 
 def send_email(settings, subject, body):
     """
@@ -18,6 +19,7 @@ def send_email(settings, subject, body):
 
         for email in to:
             msg = f'Subject: {subject}\n\n{body}'
+            msg = unidecode(msg)
             smtp.sendmail(address, email, msg)
 
         print(f"Email - {subject} - sent to {to}", flush=True)

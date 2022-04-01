@@ -33,5 +33,8 @@
     "Island": "Iceland",
     "Albanien": "Albania",
     "Accrington Stanley": "Accrington",
-    "Sutton Utd": "Sutton"
+    "Sutton Utd": "Sutton",
+    "BK Häcken": "Hacken",
+    "BK H▒cken": "Hacken",
+    "BK Hacken": "Hacken"
 }
