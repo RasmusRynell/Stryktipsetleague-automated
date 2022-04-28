@@ -36,5 +36,7 @@
     "Sutton Utd": "Sutton",
     "BK Häcken": "Hacken",
     "BK H▒cken": "Hacken",
-    "BK Hacken": "Hacken"
+    "BK Hacken": "Hacken",
+    "Blackburn Rovers": "Blackburn",
+    "Nottingham Forest": "Nottingham"
 }

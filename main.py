@@ -20,7 +20,7 @@ if __name__ == '__main__':
         config = json.load(json_data_file)
 
     args = sys.argv[1:]
-    print(helpers.colored('Ran with commands: ' + str(args), 'yellow'))
+    print(helpers.colored(f'Ran with commands: {str(args)}', 'yellow'))
     if len(args) == 1 and args[0] == '--forever':
         print(helpers.colored('Check if games are open...', 'yellow'), flush=True)
         while(not ss.games_are_open()):
