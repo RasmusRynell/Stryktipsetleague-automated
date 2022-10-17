@@ -37,7 +37,7 @@ Create a file named "config.cfg" and fill in the following (example can be found
     "output-email": {
         "from": "DESIRED OUTPUT EMAIL ADDRESS",
         "server": "EMAIL SERVER,
-        "port": FORT TO EMAIL SERVER,
+        "port": PORT TO EMAIL SERVER,
         "password": "EMAIL SERVER PASSWORD",
         "to": ["EMAIL ADDRESS TO SEND TO"]
     }
