@@ -53,4 +53,4 @@ python3 ./main.py
 ```
 
 ## Notes
-* When compiling dijkstras remember to compile for 64 but systems in order to not run out of memory at runtime. (see make-file)
+* When compiling dijkstras remember to compile for 64 bit systems in order to not run out of memory at runtime. (see make-file)
